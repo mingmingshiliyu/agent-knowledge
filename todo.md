@@ -15,7 +15,7 @@ multi-agent原理:
 https://mp.weixin.qq.com/s/3WElCquvLp1FhbNJaUIXIw done
 
 agent壳
-https://mp.weixin.qq.com/s/HW1NLYuT3iF0OozOguDcjw
+https://mp.weixin.qq.com/s/HW1NLYuT3iF0OozOguDcjw done
 
 harness定义:
 https://mp.weixin.qq.com/s/S20bW9m7NgvET3nP2ZMKtA
