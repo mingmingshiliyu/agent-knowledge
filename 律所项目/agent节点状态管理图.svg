@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="900" viewBox="0 0 2200 900">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#2f855a"/>
+    </marker>
+    <style>
+      .title { font: 700 30px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #102a43; }
+      .node-title { font: 700 21px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #1c4532; }
+      .node-text { font: 17px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #243b53; }
+      .edge-label { font: 16px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #52606d; }
+      .state { fill: #e6ffed; stroke: #2f855a; stroke-width: 4; }
+      .edge { fill: none; stroke: #2f855a; stroke-width: 4; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="2200" height="900" fill="#ffffff"/>
+  <text x="1100" y="48" text-anchor="middle" class="title">会话状态与横切能力</text>
+
+  <path class="edge" d="M 300 250 L 500 250"/>
+  <path class="edge" d="M 740 250 L 940 250"/>
+  <path class="edge" d="M 1250 250 L 1450 250"/>
+  <path class="edge" d="M 1450 330 C 1300 570 950 570 800 330"/>
+  <path class="edge" d="M 1600 330 L 1600 520 L 500 520 L 500 370"/>
+  <path class="edge" d="M 1600 330 L 1600 650 L 900 650 L 900 370"/>
+  <path class="edge" d="M 1600 330 L 1600 520 L 1900 520 L 1900 370"/>
+
+  <rect x="80" y="150" width="220" height="200" rx="28" class="state"/>
+  <text x="190" y="205" text-anchor="middle" class="node-title">用户请求</text>
+  <text x="190" y="245" text-anchor="middle" class="node-text">session_id</text>
+  <text x="190" y="275" text-anchor="middle" class="node-text">本轮问题</text>
+
+  <rect x="500" y="150" width="240" height="200" rx="28" class="state"/>
+  <text x="620" y="205" text-anchor="middle" class="node-title">Redis 分布式锁</text>
+  <text x="620" y="245" text-anchor="middle" class="node-text">按 session_id 加锁</text>
+  <text x="620" y="275" text-anchor="middle" class="node-text">同会话串行处理</text>
+
+  <rect x="940" y="150" width="310" height="200" rx="28" class="state"/>
+  <text x="1095" y="205" text-anchor="middle" class="node-title">LangGraph 节点图</text>
+  <text x="1095" y="245" text-anchor="middle" class="node-text">节点接收状态</text>
+  <text x="1095" y="275" text-anchor="middle" class="node-text">处理后返回更新字段</text>
+
+  <rect x="1450" y="150" width="310" height="200" rx="28" class="state"/>
+  <text x="1605" y="205" text-anchor="middle" class="node-title">全局会话状态</text>
+  <text x="1605" y="245" text-anchor="middle" class="node-text">历史、实体、意图、知识</text>
+  <text x="1605" y="275" text-anchor="middle" class="node-text">意向、阶段、错误信息</text>
+
+  <rect x="350" y="520" width="300" height="190" rx="28" class="state"/>
+  <text x="500" y="570" text-anchor="middle" class="node-title">Redis 短期状态</text>
+  <text x="500" y="610" text-anchor="middle" class="node-text">活跃会话约 2 小时</text>
+  <text x="500" y="640" text-anchor="middle" class="node-text">访问自动续期</text>
+
+  <rect x="750" y="520" width="300" height="190" rx="28" class="state"/>
+  <text x="900" y="570" text-anchor="middle" class="node-title">状态快照</text>
+  <text x="900" y="610" text-anchor="middle" class="node-text">每轮结束保存</text>
+  <text x="900" y="640" text-anchor="middle" class="node-text">异常时回滚上一轮</text>
+
+  <rect x="1750" y="520" width="300" height="190" rx="28" class="state"/>
+  <text x="1900" y="570" text-anchor="middle" class="node-title">MySQL 长期持久化</text>
+  <text x="1900" y="610" text-anchor="middle" class="node-text">会话结束保存完整状态</text>
+  <text x="1900" y="640" text-anchor="middle" class="node-text">供查询、分析和跟进</text>
+
+  <text x="1370" y="485" text-anchor="middle" class="edge-label">上下文窗口：最近 N 轮 + 历史摘要 + 关键实体置顶</text>
+</svg>

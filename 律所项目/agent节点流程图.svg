@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2600" height="2300" viewBox="0 0 2600 2300">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#2f6fad"/>
+    </marker>
+    <marker id="errorArrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#c53030"/>
+    </marker>
+    <style>
+      .title { font: 700 34px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #102a43; }
+      .node-title { font: 700 24px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #102a43; }
+      .node-text { font: 18px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #243b53; }
+      .edge-label { font: 17px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #334e68; }
+      .small { font: 16px "Microsoft YaHei", "Noto Sans CJK SC", sans-serif; fill: #52606d; }
+      .core { fill: #e8f1fb; stroke: #2f6fad; stroke-width: 4; }
+      .branch { fill: #fff4d6; stroke: #b7791f; stroke-width: 4; }
+      .error { fill: #fff5f5; stroke: #c53030; stroke-width: 4; }
+      .edge { fill: none; stroke: #2f6fad; stroke-width: 4; marker-end: url(#arrow); }
+      .error-edge { fill: none; stroke: #c53030; stroke-width: 3; stroke-dasharray: 10 8; marker-end: url(#errorArrow); }
+      .label-bg { fill: #ffffff; opacity: .92; }
+    </style>
+  </defs>
+
+  <rect width="2600" height="2300" fill="#ffffff"/>
+  <text x="1300" y="52" text-anchor="middle" class="title">法律多轮咨询 Agent 节点关系图</text>
+  <text x="1300" y="82" text-anchor="middle" class="small">圆形节点表示处理步骤，实线箭头表示正常流转，虚线箭头表示异常流转</text>
+
+  <path class="edge" d="M 1300 130 L 1300 155"/>
+  <path class="edge" d="M 1300 470 L 1300 505"/>
+  <path class="edge" d="M 1300 820 L 1300 855"/>
+  <path class="edge" d="M 1300 1170 L 1300 1205"/>
+  <path class="edge" d="M 1300 1520 L 1300 1555"/>
+  <path class="edge" d="M 1470 1350 C 1650 1350 1730 1350 1880 1350"/>
+  <path class="edge" d="M 2050 1520 L 2050 1555"/>
+  <path class="edge" d="M 2050 1870 L 2050 1905"/>
+  <path class="edge" d="M 1130 650 C 860 650 760 1700 1130 1700"/>
+  <path class="edge" d="M 500 1170 C 500 1700 900 1700 1130 1700"/>
+
+  <rect x="1320" y="477" width="230" height="30" class="label-bg"/>
+  <text x="1435" y="500" text-anchor="middle" class="edge-label">状态加载完成</text>
+  <rect x="1320" y="827" width="280" height="30" class="label-bg"/>
+  <text x="1460" y="850" text-anchor="middle" class="edge-label">信息完整，进入检索</text>
+  <rect x="1330" y="1177" width="200" height="30" class="label-bg"/>
+  <text x="1430" y="1200" text-anchor="middle" class="edge-label">召回知识成功</text>
+  <rect x="1320" y="1527" width="230" height="30" class="label-bg"/>
+  <text x="1435" y="1550" text-anchor="middle" class="edge-label">生成答案并返回</text>
+  <rect x="1580" y="1315" width="330" height="30" class="label-bg"/>
+  <text x="1745" y="1338" text-anchor="middle" class="edge-label">用户结束或超时关闭</text>
+  <rect x="2065" y="1530" width="220" height="30" class="label-bg"/>
+  <text x="2175" y="1553" text-anchor="middle" class="edge-label">意向识别完成</text>
+  <rect x="2070" y="1875" width="300" height="30" class="label-bg"/>
+  <text x="2220" y="1898" text-anchor="middle" class="edge-label">记录持久化并同步</text>
+  <rect x="700" y="680" width="240" height="30" class="label-bg"/>
+  <text x="820" y="703" text-anchor="middle" class="edge-label">信息不足，需澄清</text>
+  <rect x="650" y="1650" width="230" height="30" class="label-bg"/>
+  <text x="765" y="1673" text-anchor="middle" class="edge-label">补充信息后重试</text>
+  <rect x="780" y="1680" width="260" height="30" class="label-bg"/>
+  <text x="910" y="1703" text-anchor="middle" class="edge-label">用户继续提问</text>
+
+  <circle cx="1300" cy="95" r="60" class="branch"/>
+  <text x="1300" y="90" text-anchor="middle" class="node-title">用户发起</text>
+  <text x="1300" y="118" text-anchor="middle" class="node-text">咨询</text>
+
+  <circle cx="1300" cy="300" r="170" class="core"/>
+  <text x="1300" y="245" text-anchor="middle" class="node-title">节点一：初始化</text>
+  <text x="1300" y="278" text-anchor="middle" class="node-text">输入：session_id、问题</text>
+  <text x="1300" y="308" text-anchor="middle" class="node-text">职责：初始化或加载上下文</text>
+  <text x="1300" y="338" text-anchor="middle" class="node-text">逻辑：读取 Redis/MySQL</text>
+  <text x="1300" y="368" text-anchor="middle" class="node-text">输出：完整会话状态</text>
+
+  <circle cx="1300" cy="650" r="170" class="core"/>
+  <text x="1300" y="595" text-anchor="middle" class="node-title">节点二：意图识别</text>
+  <text x="1300" y="628" text-anchor="middle" class="node-text">输入：问题、历史、实体</text>
+  <text x="1300" y="658" text-anchor="middle" class="node-text">职责：分类法律领域和问题类型</text>
+  <text x="1300" y="688" text-anchor="middle" class="node-text">逻辑：大模型分类并路由</text>
+  <text x="1300" y="718" text-anchor="middle" class="node-text">输出：意图、实体、路由结果</text>
+
+  <circle cx="1300" cy="1000" r="170" class="core"/>
+  <text x="1300" y="945" text-anchor="middle" class="node-title">节点三：知识检索</text>
+  <text x="1300" y="978" text-anchor="middle" class="node-text">输入：意图、领域、实体</text>
+  <text x="1300" y="1008" text-anchor="middle" class="node-text">职责：召回法条和 FAQ</text>
+  <text x="1300" y="1038" text-anchor="middle" class="node-text">逻辑：Embedding + Top-K</text>
+  <text x="1300" y="1068" text-anchor="middle" class="node-text">输出：法律知识片段</text>
+
+  <circle cx="1300" cy="1350" r="170" class="core"/>
+  <text x="1300" y="1295" text-anchor="middle" class="node-title">节点四：答案生成</text>
+  <text x="1300" y="1328" text-anchor="middle" class="node-text">输入：问题、上下文、知识</text>
+  <text x="1300" y="1358" text-anchor="middle" class="node-text">职责：生成严谨法律解答</text>
+  <text x="1300" y="1388" text-anchor="middle" class="node-text">逻辑：组装 Prompt、校验引用</text>
+  <text x="1300" y="1418" text-anchor="middle" class="node-text">输出：结论、依据、建议</text>
+
+  <circle cx="1300" cy="1700" r="145" class="branch"/>
+  <text x="1300" y="1660" text-anchor="middle" class="node-title">返回用户</text>
+  <text x="1300" y="1693" text-anchor="middle" class="node-text">等待下一轮问题</text>
+  <text x="1300" y="1723" text-anchor="middle" class="node-text">或结束会话</text>
+
+  <circle cx="500" cy="1000" r="170" class="branch"/>
+  <text x="500" y="945" text-anchor="middle" class="node-title">澄清节点</text>
+  <text x="500" y="978" text-anchor="middle" class="node-text">输入：缺失信息</text>
+  <text x="500" y="1008" text-anchor="middle" class="node-text">职责：生成澄清问题</text>
+  <text x="500" y="1038" text-anchor="middle" class="node-text">输出：等待用户补充</text>
+
+  <circle cx="2050" cy="1350" r="170" class="core"/>
+  <text x="2050" y="1295" text-anchor="middle" class="node-title">节点五：意向识别</text>
+  <text x="2050" y="1328" text-anchor="middle" class="node-text">输入：整段对话、诉求</text>
+  <text x="2050" y="1358" text-anchor="middle" class="node-text">职责：判断客户意向程度</text>
+  <text x="2050" y="1388" text-anchor="middle" class="node-text">逻辑：分析诉求和情绪</text>
+  <text x="2050" y="1418" text-anchor="middle" class="node-text">输出：高/中/低意向标签</text>
+
+  <circle cx="2050" cy="1700" r="170" class="core"/>
+  <text x="2050" y="1645" text-anchor="middle" class="node-title">节点六：跟进记录</text>
+  <text x="2050" y="1678" text-anchor="middle" class="node-text">输入：客户信息、咨询摘要</text>
+  <text x="2050" y="1708" text-anchor="middle" class="node-text">职责：生成标准化记录</text>
+  <text x="2050" y="1738" text-anchor="middle" class="node-text">逻辑：结构化写入 MySQL</text>
+  <text x="2050" y="1768" text-anchor="middle" class="node-text">输出：跟进建议和记录</text>
+
+  <circle cx="2050" cy="2050" r="85" class="branch"/>
+  <text x="2050" y="2044" text-anchor="middle" class="node-title">流程</text>
+  <text x="2050" y="2075" text-anchor="middle" class="node-title">结束</text>
+
+  <circle cx="500" cy="1550" r="170" class="error"/>
+  <text x="500" y="1495" text-anchor="middle" class="node-title">异常处理节点</text>
+  <text x="500" y="1528" text-anchor="middle" class="node-text">输入：异常类型、上下文</text>
+  <text x="500" y="1558" text-anchor="middle" class="node-text">职责：记录日志、保护状态</text>
+  <text x="500" y="1588" text-anchor="middle" class="node-text">输出：友好提示、重试/回滚</text>
+  <path class="error-edge" d="M 1300 470 C 1050 850 780 1200 620 1430"/>
+  <path class="error-edge" d="M 1130 650 C 900 900 760 1250 620 1460"/>
+  <path class="error-edge" d="M 1130 1000 C 900 1150 760 1350 625 1500"/>
+  <path class="error-edge" d="M 1130 1350 C 920 1400 760 1480 625 1530"/>
+  <path class="error-edge" d="M 1880 1350 C 1500 1450 950 1550 625 1550"/>
+  <path class="error-edge" d="M 1880 1700 C 1450 1800 900 1700 620 1620"/>
+  <rect x="760" y="1430" width="280" height="30" class="label-bg"/>
+  <text x="900" y="1453" text-anchor="middle" class="edge-label" fill="#c53030">任意节点调用失败</text>
+  <path class="error-edge" d="M 670 1550 C 850 1550 980 1700 1130 1700"/>
+  <rect x="750" y="1570" width="250" height="30" class="label-bg"/>
+  <text x="875" y="1593" text-anchor="middle" class="edge-label">返回友好提示</text>
+</svg>
