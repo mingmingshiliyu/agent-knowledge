@@ -1,0 +1,138 @@
+erDiagram
+    sessions ||--o{ messages : "session_id"
+    sessions ||--o{ llm_audit_logs : "session_id"
+    sessions ||--o{ follow_up_records : "业务关联，FK未说明"
+    sessions ||--o{ quality_reports : "业务关联，FK未说明"
+    skill_configs ||--o{ evaluation_cases : "skill_name，逻辑关联"
+
+    sessions {
+        BIGINT id PK "会话ID"
+        BIGINT tenant_id "律所ID，多租户隔离"
+        BIGINT user_id "用户ID"
+        VARCHAR session_type "咨询/质检/合同审查"
+        VARCHAR status "进行中/已结束/人工接管"
+        VARCHAR intent_tag "意向标签"
+        TEXT summary "会话摘要"
+        DATETIME started_at "开始时间"
+        DATETIME ended_at "结束时间"
+        DATETIME created_at "创建时间"
+        DATETIME updated_at "更新时间"
+        BIGINT created_by "创建人"
+        BIGINT updated_by "更新人"
+        DATETIME deleted_at "软删除时间"
+    }
+
+    messages {
+        BIGINT id PK "消息ID"
+        BIGINT session_id FK "所属会话"
+        BIGINT tenant_id "律所ID，多租户隔离"
+        VARCHAR role "user/assistant/system"
+        LONGTEXT content "消息正文，大文本不建索引"
+        INT token_count "Token数量"
+        DECIMAL cost "消息成本"
+        JSON tool_calls "工具调用记录"
+        DATETIME created_at "创建时间"
+        DATETIME updated_at "更新时间，通用审计字段"
+        BIGINT created_by "创建人，通用审计字段"
+        BIGINT updated_by "更新人，通用审计字段"
+        DATETIME deleted_at "软删除时间，通用字段"
+    }
+
+    customers {
+        BIGINT id PK "客户ID"
+        BIGINT tenant_id "律所ID，多租户隔离"
+        VARCHAR name "客户姓名"
+        VARCHAR phone "手机号"
+        VARCHAR email "邮箱"
+        VARCHAR source "来源渠道"
+        VARCHAR intent_level "高/中/低意向"
+        JSON tags "客户标签"
+        DATETIME latest_contact_at "最近联系时间"
+        DATETIME created_at "创建时间"
+        DATETIME updated_at "更新时间"
+        BIGINT created_by "创建人，通用审计字段"
+        BIGINT updated_by "更新人，通用审计字段"
+        DATETIME deleted_at "软删除时间，通用字段"
+    }
+
+    follow_up_records {
+        BIGINT id PK "记录ID，字段详情未在源文档展开"
+        BIGINT tenant_id "通用多租户字段"
+        VARCHAR schema_note "源文档未提供其余字段定义"
+        DATETIME created_at "通用审计字段"
+        DATETIME updated_at "通用审计字段"
+        BIGINT created_by "通用审计字段"
+        BIGINT updated_by "通用审计字段"
+        DATETIME deleted_at "通用软删除字段"
+    }
+
+    quality_reports {
+        BIGINT id PK "报告ID，字段详情未在源文档展开"
+        BIGINT tenant_id "通用多租户字段"
+        VARCHAR schema_note "源文档未提供其余字段定义"
+        DATETIME created_at "通用审计字段"
+        DATETIME updated_at "通用审计字段"
+        BIGINT created_by "通用审计字段"
+        BIGINT updated_by "通用审计字段"
+        DATETIME deleted_at "通用软删除字段"
+    }
+
+    skill_configs {
+        BIGINT id PK "配置ID，字段详情未在源文档展开"
+        BIGINT tenant_id "通用多租户字段"
+        VARCHAR schema_note "Skill配置表；原文另述配置即代码"
+        DATETIME created_at "通用审计字段"
+        DATETIME updated_at "通用审计字段"
+        BIGINT created_by "通用审计字段"
+        BIGINT updated_by "通用审计字段"
+        DATETIME deleted_at "通用软删除字段"
+    }
+
+    evaluation_cases {
+        BIGINT id PK "用例ID"
+        BIGINT tenant_id "通用多租户字段；原文总则要求业务表具备"
+        VARCHAR skill_name "Skill名称"
+        VARCHAR version "Skill版本"
+        JSON input "评测输入"
+        JSON expected_output "预期输出"
+        JSON assertions "断言配置"
+        VARCHAR category "用例分类"
+        DATETIME created_at "创建时间"
+        DATETIME updated_at "更新时间"
+        BIGINT created_by "创建人，通用审计字段"
+        BIGINT updated_by "更新人，通用审计字段"
+        DATETIME deleted_at "软删除时间，通用字段"
+    }
+
+    llm_audit_logs {
+        BIGINT id PK "审计日志ID"
+        BIGINT tenant_id "律所ID，多租户隔离"
+        BIGINT session_id FK "关联会话"
+        VARCHAR skill_name "Skill名称"
+        VARCHAR model_name "模型名称"
+        INT input_tokens "输入Token数"
+        INT output_tokens "输出Token数"
+        INT embedding_tokens "Embedding Token数"
+        DECIMAL input_price_snapshot "输入价格快照"
+        DECIMAL output_price_snapshot "输出价格快照"
+        DECIMAL estimated_cost "估算成本"
+        VARCHAR status "调用状态"
+        TEXT error_msg "错误信息"
+        INT duration_ms "耗时毫秒"
+        DATETIME created_at "创建时间"
+        DATETIME updated_at "更新时间，通用审计字段"
+        BIGINT created_by "创建人，通用审计字段"
+        BIGINT updated_by "更新人，通用审计字段"
+        DATETIME deleted_at "软删除时间，通用字段"
+    }
+
+    system_configs {
+        BIGINT id PK "配置ID，字段详情未在源文档展开"
+        BIGINT tenant_id "通用多租户字段"
+        VARCHAR schema_note "系统配置表；源文档未提供其余字段定义"
+        DATETIME created_at "通用审计字段"
+        DATETIME updated_at "通用审计字段"
+        BIGINT created_by "通用审计字段"
+        BIGINT updated_by "通用审计字段"
+        DATETIME deleted_at "通用软删除字段"
+    }
